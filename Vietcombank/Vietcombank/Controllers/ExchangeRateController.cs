@@ -1,34 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
 using Microsoft.AspNetCore.Mvc;
-using Vietcombank.Models;
+using Vietcombank.Services;
+using Vietcombank.ViewModels;
+
 namespace Vietcombank.Controllers
 {
+    using static WebConstants;
     public class ExchangeRateController : Controller
     {
-        public IActionResult Index(int page)
+        private readonly IExchangeRateService exchangeRateService;
+
+        public ExchangeRateController(IExchangeRateService exchangeRateService)
         {
-            var baseURL = "https://www.vietcombank.com.vn/exchangerates/ExrateXML.aspx";
+            this.exchangeRateService = exchangeRateService;
+        }
 
-            var request = (HttpWebRequest)WebRequest.Create(baseURL);
+        public IActionResult Index(int page= DefaultPage)
+        {
+            var exrates = this.exchangeRateService.All(page, PageSize);
 
-            request.AutomaticDecompression = DecompressionMethods.GZip;
+            return View(new ExrateViewModel
+            {
+                Exrates = exrates,
 
-            var response = (HttpWebResponse)request.GetResponse();
+                CurrentPage = page,
 
-            var responseStream = response.GetResponseStream();
+                TotalPages = (int)Math.Ceiling(this.exchangeRateService.Total() / (double)PageSize)
+            });
 
-            var serializer = new XmlSerializer(typeof(ExrateList));
-
-            var exrateList = (ExrateList)serializer.Deserialize(responseStream);
-
-            var result = exrateList.Exrates;
-
-            return View(result);
+            
         }
     }
 }

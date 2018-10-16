@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Vietcombank.Services;
 
 namespace Vietcombank
 {
@@ -33,6 +34,8 @@ namespace Vietcombank
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddScoped<IExchangeRateService, ExchangeRateService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
