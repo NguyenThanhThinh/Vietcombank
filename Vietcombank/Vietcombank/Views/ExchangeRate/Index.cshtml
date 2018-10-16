@@ -1,7 +1,57 @@
-﻿
+﻿@model IEnumerable<Vietcombank.Models.Exrate>
 @{
     ViewData["Title"] = "Index";
+
+    var listExrate = Model;
 }
 
-<h2>Index</h2>
+<div class="panel panel-primary">
+    <div class="panel-heading">Tỷ giá ngoại tệ</div>
+    <div class="panel-body">
+        <table class="table table-responsive table-striped">
+            <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CurrencyCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CurrencyName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Buy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Transfer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sell)
+                </th>
 
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in listExrate)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CurrencyCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CurrencyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Buy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Transfer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sell)
+                    </td>
+
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
