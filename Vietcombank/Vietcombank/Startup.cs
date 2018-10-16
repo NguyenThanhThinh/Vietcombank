@@ -56,7 +56,7 @@ namespace Vietcombank
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=ExchangeRate}/{action=Index}/{id?}");
             });
         }
     }
