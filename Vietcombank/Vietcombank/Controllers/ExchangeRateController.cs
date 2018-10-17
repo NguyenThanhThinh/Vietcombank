@@ -27,8 +27,22 @@ namespace Vietcombank.Controllers
 
                 TotalPages = (int)Math.Ceiling(this.exchangeRateService.Total() / (double)PageSize)
             });
+           
+        }
 
-            
+        public IActionResult DongA(int page = DefaultPage)
+        {
+            var items = this.exchangeRateService.GetAllDongA(page, PageSize);
+
+            return View(new DongABankViewModel
+            {
+                Items = items,
+
+                CurrentPage = page,
+
+                TotalPages = (int)Math.Ceiling(this.exchangeRateService.TotalDongA() / (double)PageSize)
+            });
+
         }
     }
 }

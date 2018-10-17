@@ -8,6 +8,10 @@ namespace Vietcombank.Services
     {
         IEnumerable<Exrate> All(int page = DefaultPage, int pageSize = DefaultPageSize);
 
+        IEnumerable<Item> GetAllDongA(int page = DefaultPage, int pageSize = DefaultPageSize);
+
         int Total();
+
+        int TotalDongA();
     }
 }
